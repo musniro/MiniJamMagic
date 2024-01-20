@@ -26,9 +26,18 @@ func _physics_process(delta):
 		var direction : Vector2 = (global_position - player.global_position).normalized()
 		velocity = direction * speed
 		move_and_slide()
+		set_collision_mask(2)
+		set_collision_layer(2)
 	
 	
 	if !player_detected:
+		
+		if $Left.is_colliding():
+			facing_right = !facing_right
+		if $Right.is_colliding():
+			facing_right = !facing_right
+		
+		
 		if facing_right:
 			speed = 80
 			$RayCast2D.position.x = 15
@@ -60,3 +69,13 @@ func _on_area_2d_body_entered(body):
 func _on_area_2d_body_exited(body):
 	if body.is_in_group("Player"):
 		player_detected = false
+		set_collision_mask(1)
+		set_collision_layer(1)
+
+
+func _on_attack_box_body_entered(body):
+	if body.is_in_group("Player"):
+		if body.has_method("_hit"):
+			body._hit()
+			print("yepppp it reduced")
+			queue_free()

@@ -109,6 +109,10 @@ func _on_death_timer_timeout():
 	else:
 		game_timer.start(1)
 
+func _hit():
+	seconds_left -= 10
+	$Indicator.text = "-10 s "
+	$Indicator_timer.start()
 
 func _on_die_timeout():
 	Engine.time_scale = 0
@@ -118,3 +122,7 @@ func _on_animated_sprite_2d_animation_finished():
 	$die.start()
 	anim.play("Death")
 	death_smoke.hide()
+
+
+func _on_indicator_timer_timeout():
+	$Indicator.hide()
