@@ -11,7 +11,7 @@ var jump := 250
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var anim = $Animations/AnimationPlayer
-@onready var particles = $Particles
+@onready var particles : Particles = $Particles
 @onready var death_smoke = $Animations/DeathSmoke
 
 var alive := true
@@ -54,7 +54,7 @@ func _physics_process(delta):
 		
 		_determine_state()
 		_anim()
-		
+		particles.particles(self)
 		
 	timer_label.text = "Time: " + str(seconds_left) + "s"
 	
@@ -83,14 +83,14 @@ func _abs(x:float) -> float:
 func _anim():
 	match state:
 		State.IDLE:
-			pass
+			anim.play("Idle")
 		State.RUN:
-			pass
+			anim.play("Run")
 			$Sprite2D.flip_h = not is_running_right
 		State.FALL:
-			pass
+			anim.play("fall")
 		State.JUMP:
-			pass
+			anim.play("jump")
 			
 	if is_just_jumped or is_just_landed:
 		var tween = get_tree().create_tween()

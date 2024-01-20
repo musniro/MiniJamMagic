@@ -1,13 +1,32 @@
-[gd_scene load_steps=31 format=3 uid="uid://wb062wkbc77h"]
+[gd_scene load_steps=35 format=3 uid="uid://wb062wkbc77h"]
 
 [ext_resource type="Texture2D" uid="uid://bi3p42w5qnmic" path="res://Assets/BlackCultistSpritesheet.png" id="1_u7nc6"]
 [ext_resource type="Script" path="res://Csc/Player/player.gd" id="1_uyalk"]
 [ext_resource type="Texture2D" uid="uid://7cmdps0trlgy" path="res://Assets/download.jpeg" id="2_djgpc"]
 [ext_resource type="Texture2D" uid="uid://cfunb8avo5cpo" path="res://Assets/Dark VFX 2 (48x64).png" id="4_rqj73"]
+[ext_resource type="Script" path="res://Csc/Player/Particles.gd" id="5_gyukw"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2b28x"]
 radius = 4.0
 height = 12.0
+
+[sub_resource type="Curve" id="Curve_ujya5"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.488764, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_yvye3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_87bbk"]
+min_value = -200.0
+max_value = 200.0
+_data = [Vector2(0, 2.19781), 0.0, 0.0, 0, 0, Vector2(0.977528, 129.67), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_hphy2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.494382, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.021978), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="Animation" id="Animation_up8vh"]
 resource_name = "Death"
@@ -270,16 +289,15 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="Curve" id="Curve_yvye3"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_uyalk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 1)
+position = Vector2(0, 8)
 texture = ExtResource("1_u7nc6")
+centered = false
+offset = Vector2(-8, -16)
 hframes = 20
 frame = 4
 
@@ -305,10 +323,16 @@ shadow_enabled = true
 shadow_color = Color(0, 0, 0, 0.952941)
 texture = ExtResource("2_djgpc")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_r2jsp")
-}
+[node name="Mystical lights" type="CPUParticles2D" parent="PointLight2D"]
+amount = 10
+lifetime = 5.0
+emission_shape = 1
+emission_sphere_radius = 64.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 4.0
+scale_amount_curve = SubResource("Curve_ujya5")
+color = Color(0.419608, 0.603922, 1, 0.819608)
 
 [node name="Death_Timer" type="Timer" parent="."]
 one_shot = true
@@ -317,16 +341,13 @@ one_shot = true
 wait_time = 0.4
 one_shot = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-visible = false
-position = Vector2(1, -24)
-sprite_frames = SubResource("SpriteFrames_segax")
-
 [node name="Particles" type="Node2D" parent="."]
+script = ExtResource("5_gyukw")
 
-[node name="Walk particles" type="CPUParticles2D" parent="Particles"]
+[node name="Run" type="CPUParticles2D" parent="Particles"]
 position = Vector2(-1, 8)
 rotation = -0.187727
+emitting = false
 lifetime = 0.8
 speed_scale = 0.8
 explosiveness = 0.18
@@ -337,6 +358,46 @@ initial_velocity_min = 10.1
 initial_velocity_max = 40.41
 scale_amount_curve = SubResource("Curve_yvye3")
 
+[node name="Jump" type="CPUParticles2D" parent="Particles"]
+position = Vector2(-1, 8)
+emitting = false
+lifetime = 0.1
+one_shot = true
+speed_scale = 0.2
+explosiveness = 0.88
+direction = Vector2(0, 1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 180.81
+initial_velocity_max = 211.12
+linear_accel_curve = SubResource("Curve_87bbk")
+scale_amount_curve = SubResource("Curve_hphy2")
+
+[node name="Land" type="CPUParticles2D" parent="Particles"]
+position = Vector2(-1, 8)
+emitting = false
+lifetime = 0.1
+one_shot = true
+speed_scale = 0.2
+explosiveness = 0.88
+direction = Vector2(0, -1)
+gravity = Vector2(0, 1500)
+initial_velocity_min = 120.21
+initial_velocity_max = 120.21
+linear_accel_curve = SubResource("Curve_87bbk")
+
+[node name="Animations" type="Node2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Animations"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_r2jsp")
+}
+
+[node name="DeathSmoke" type="AnimatedSprite2D" parent="Animations"]
+visible = false
+position = Vector2(1, -24)
+sprite_frames = SubResource("SpriteFrames_segax")
+
 [connection signal="timeout" from="Death_Timer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="die" to="." method="_on_die_timeout"]
-[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="animation_finished" from="Animations/DeathSmoke" to="." method="_on_animated_sprite_2d_animation_finished"]
