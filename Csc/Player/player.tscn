@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://wb062wkbc77h"]
+[gd_scene load_steps=31 format=3 uid="uid://wb062wkbc77h"]
 
 [ext_resource type="Texture2D" uid="uid://bi3p42w5qnmic" path="res://Assets/BlackCultistSpritesheet.png" id="1_u7nc6"]
 [ext_resource type="Script" path="res://Csc/Player/player.gd" id="1_uyalk"]
@@ -23,6 +23,34 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [16, 17, 18, 19]
+}
+
+[sub_resource type="Animation" id="Animation_b3nxw"]
+resource_name = "Hit"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_7adgd"]
@@ -116,34 +144,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [12, 13, 14]
-}
-
-[sub_resource type="Animation" id="Animation_b3nxw"]
-resource_name = "Hit"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r2jsp"]
@@ -270,6 +270,10 @@ animations = [{
 "speed": 12.0
 }]
 
+[sub_resource type="Curve" id="Curve_yvye3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_uyalk")
 
@@ -317,6 +321,21 @@ one_shot = true
 visible = false
 position = Vector2(1, -24)
 sprite_frames = SubResource("SpriteFrames_segax")
+
+[node name="Particles" type="Node2D" parent="."]
+
+[node name="Walk particles" type="CPUParticles2D" parent="Particles"]
+position = Vector2(-1, 8)
+rotation = -0.187727
+lifetime = 0.8
+speed_scale = 0.8
+explosiveness = 0.18
+randomness = 0.09
+spread = 23.18
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.1
+initial_velocity_max = 40.41
+scale_amount_curve = SubResource("Curve_yvye3")
 
 [connection signal="timeout" from="Death_Timer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="die" to="." method="_on_die_timeout"]
