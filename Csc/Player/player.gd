@@ -3,7 +3,8 @@ class_name Player
 
 @onready var timer_label = $Camera2D/Countdown
 @onready var game_timer = $Death_Timer
-var seconds_left := 10
+
+var seconds_left := 120
 
 var speed := 100
 var jump := 250

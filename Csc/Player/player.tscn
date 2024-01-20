@@ -289,7 +289,7 @@ animations = [{
 "speed": 12.0
 }]
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 script = ExtResource("1_uyalk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
