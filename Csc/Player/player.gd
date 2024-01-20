@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 @onready var timer_label = $Camera2D/Countdown
 @onready var game_timer = $Death_Timer
-var seconds_left : int = 5
+var seconds_left : int = 180
 
 var speed = 100
 var jump = 250
