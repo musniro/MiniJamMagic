@@ -12,8 +12,6 @@ func _physics_process(delta):
 	if !is_on_floor():
 		velocity.y += gravity * delta
 	
-	if player_detected == false:
-		pass
 	if $RayCast2D.is_colliding():
 		pass
 	else:
@@ -31,6 +29,10 @@ func _physics_process(delta):
 	velocity.x = speed
 	move_and_slide()
 	
+	if player_detected:
+		pass
+	
+	
 
 func _anim():
 	pass
@@ -42,8 +44,8 @@ func _flip():
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("Player"):
-		pass
+		player_detected = true
 
 func _on_area_2d_body_exited(body):
 	if body.is_in_group("Player"):
-		pass
+		player_detected = false
