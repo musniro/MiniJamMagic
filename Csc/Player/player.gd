@@ -110,8 +110,8 @@ func _on_death_timer_timeout():
 		game_timer.start(1)
 
 func _hit():
-	seconds_left -= 10
-	$Indicator.text = "-10 s "
+	seconds_left -= 20
+	$Indicator.text = "-20 s "
 	$Indicator_timer.start()
 
 func _on_die_timeout():

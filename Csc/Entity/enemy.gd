@@ -75,7 +75,6 @@ func _on_area_2d_body_exited(body):
 
 func _on_attack_box_body_entered(body):
 	if body.is_in_group("Player"):
-		if body.has_method("_hit"):
-			body._hit()
-			print("yepppp it reduced")
+		if player.has_method("_hit"):
+			player._hit()
 			queue_free()
