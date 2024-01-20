@@ -539,6 +539,7 @@ layer_1/tile_data = PackedInt32Array(1245193, 65536, 1, 1245194, 131072, 1, 1245
 position = Vector2(194, 290)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0.156863, 0.156863, 0.156863, 1)
 
 [node name="MagicalLight" parent="." instance=ExtResource("3_kr06q")]

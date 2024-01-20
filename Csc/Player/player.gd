@@ -103,7 +103,7 @@ func _on_death_timer_timeout():
 	if seconds_left <= 0:
 		game_timer.stop()
 		alive = false
-		#hitanimation here
+		anim.play("Hit")
 		death_smoke.play()
 		death_smoke.show()
 	else:
