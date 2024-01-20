@@ -93,7 +93,6 @@ func _anim():
 			anim.play("jump")
 			
 	if is_just_jumped or is_just_landed:
-		print("juist jumped")
 		var tween = get_tree().create_tween()
 		tween.tween_property($Sprite2D, "scale", Vector2(1,0.5), 0.02)
 		tween.tween_property($Sprite2D, "scale", Vector2(1,1), 0.2)
