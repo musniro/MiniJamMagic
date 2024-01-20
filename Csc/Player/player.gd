@@ -1,18 +1,19 @@
 extends CharacterBody2D
-
+class_name Player
 
 @onready var timer_label = $Camera2D/Countdown
 @onready var game_timer = $Death_Timer
-var seconds_left : int = 10
+var seconds_left := 10
 
-var speed = 100
-var jump = 250
+var speed := 100
+var jump := 250
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-@onready var anim = $AnimationPlayer
-@onready var walk_particles = $"Particles/Walk particles"
+@onready var anim = $Animations/AnimationPlayer
+@onready var particles : Particles = $Particles
+@onready var death_smoke = $Animations/DeathSmoke
 
-var alive = true
+var alive := true
 enum State { 
 	IDLE,
 	RUN,
@@ -20,10 +21,17 @@ enum State {
 	FALL,
 	DEAD
 }
-var state = State.IDLE
+var state := State.IDLE
+var previous_state := State.IDLE
 var is_running_right:
 	get:
 		return velocity.x > 0
+var is_just_jumped:
+	get:
+		return state == State.JUMP and previous_state in [State.RUN, State.IDLE] 	
+var is_just_landed:
+	get:
+		return is_on_floor() and previous_state == State.FALL
 		
 func _ready():
 	game_timer.start(1)
@@ -45,29 +53,31 @@ func _physics_process(delta):
 		
 		_determine_state()
 		_anim()
-		_particles()
+		particles.particles(self)
 		
 	timer_label.text = "Time: " + str(seconds_left) + "s"
 	
 func _determine_state():
+	previous_state = state
+	
 	if not alive:
 		self.state = State.DEAD
 		return 
 		
 	if is_on_floor():
-		if velocity.x > 0:
-			self.state = State.RUN
-		elif velocity.x <0:
+		if _abs(velocity.x) > 0:
 			self.state = State.RUN
 		else:
 			self.state = State.IDLE
 	
 	if !is_on_floor():
-		if velocity.y >0:
+		if velocity.y > 0:
 			self.state = State.FALL
-		elif velocity.y <0:
+		elif velocity.y < 0:
 			self.state = State.JUMP
-	
+			
+func _abs(x:float) -> float:
+	return x if x > 0 else -x
 
 func _anim():
 	match state:
@@ -81,13 +91,12 @@ func _anim():
 		State.JUMP:
 			anim.play("jump")
 			
-func _particles():
-	walk_particles.emitting = state == State.RUN
-	if is_running_right:
-		$Particles.scale.x = 1
-	else:
-		$Particles.scale.x = -1
-		
+	if is_just_jumped or is_just_landed:
+		print("juist jumped")
+		var tween = get_tree().create_tween()
+		tween.tween_property($Sprite2D, "scale", Vector2(1,0.5), 0.02)
+		tween.tween_property($Sprite2D, "scale", Vector2(1,1), 0.2)
+			
 
 func _on_death_timer_timeout():
 	seconds_left -= 1
@@ -95,8 +104,8 @@ func _on_death_timer_timeout():
 		game_timer.stop()
 		alive = false
 		anim.play("Hit")
-		$AnimatedSprite2D.play()
-		$AnimatedSprite2D.show()
+		death_smoke.play()
+		death_smoke.show()
 	else:
 		game_timer.start(1)
 
@@ -108,4 +117,4 @@ func _on_die_timeout():
 func _on_animated_sprite_2d_animation_finished():
 	$die.start()
 	anim.play("Death")
-	$AnimatedSprite2D.hide()
+	death_smoke.hide()
