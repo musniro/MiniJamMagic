@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://cy3ivqn2yvoub"]
+
+[ext_resource type="Texture2D" uid="uid://7cmdps0trlgy" path="res://Assets/download.jpeg" id="1_um45k"]
+
+[sub_resource type="Curve" id="Curve_4qo51"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.488764, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="MagicalLight" type="PointLight2D"]
+scale = Vector2(0.6, 0.6)
+energy = 2.0
+texture = ExtResource("1_um45k")
+
+[node name="LightParticles" type="CPUParticles2D" parent="."]
+amount = 50
+lifetime = 5.0
+preprocess = 5.0
+fixed_fps = 10
+emission_shape = 1
+emission_sphere_radius = 128.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 4.0
+scale_amount_curve = SubResource("Curve_4qo51")
+color = Color(0.419608, 0.603922, 1, 0.819608)

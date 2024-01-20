@@ -14,20 +14,6 @@ height = 12.0
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.488764, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="Curve" id="Curve_yvye3"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="Curve" id="Curve_87bbk"]
-min_value = -200.0
-max_value = 200.0
-_data = [Vector2(0, 2.19781), 0.0, 0.0, 0, 0, Vector2(0.977528, 129.67), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="Curve" id="Curve_hphy2"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.494382, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.021978), 0.0, 0.0, 0, 0]
-point_count = 3
-
 [sub_resource type="Animation" id="Animation_up8vh"]
 resource_name = "Death"
 length = 0.4
@@ -289,15 +275,26 @@ animations = [{
 "speed": 12.0
 }]
 
-[node name="Player" type="CharacterBody2D" groups=["Player"]]
+[sub_resource type="Curve" id="Curve_yvye3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_87bbk"]
+min_value = -200.0
+max_value = 200.0
+_data = [Vector2(0, 2.19781), 0.0, 0.0, 0, 0, Vector2(0.977528, 129.67), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_hphy2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.494382, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.021978), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_uyalk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(0, 0, 0, 1)
-position = Vector2(0, 8)
 texture = ExtResource("1_u7nc6")
-centered = false
-offset = Vector2(-8, -16)
 hframes = 20
 frame = 4
 
@@ -334,12 +331,22 @@ initial_velocity_max = 4.0
 scale_amount_curve = SubResource("Curve_ujya5")
 color = Color(0.419608, 0.603922, 1, 0.819608)
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_r2jsp")
+}
+
 [node name="Death_Timer" type="Timer" parent="."]
 one_shot = true
 
 [node name="die" type="Timer" parent="."]
 wait_time = 0.4
 one_shot = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(1, -24)
+sprite_frames = SubResource("SpriteFrames_segax")
 
 [node name="Particles" type="Node2D" parent="."]
 script = ExtResource("5_gyukw")
@@ -385,19 +392,6 @@ initial_velocity_min = 120.21
 initial_velocity_max = 120.21
 linear_accel_curve = SubResource("Curve_87bbk")
 
-[node name="Animations" type="Node2D" parent="."]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Animations"]
-root_node = NodePath("../..")
-libraries = {
-"": SubResource("AnimationLibrary_r2jsp")
-}
-
-[node name="DeathSmoke" type="AnimatedSprite2D" parent="Animations"]
-visible = false
-position = Vector2(1, -24)
-sprite_frames = SubResource("SpriteFrames_segax")
-
 [connection signal="timeout" from="Death_Timer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="die" to="." method="_on_die_timeout"]
-[connection signal="animation_finished" from="Animations/DeathSmoke" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

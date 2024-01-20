@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://wb062wkbc77h" path="res://Csc/Player/player.tscn" id="1_8n3lw"]
 [ext_resource type="Texture2D" uid="uid://dtjotfycpkhms" path="res://Assets/Dungeon Tile Set.png" id="2_dxydf"]
-[ext_resource type="Texture2D" uid="uid://7cmdps0trlgy" path="res://Assets/download.jpeg" id="3_kssdl"]
+[ext_resource type="PackedScene" uid="uid://cy3ivqn2yvoub" path="res://Csc/objects/MagicalLight.tscn" id="3_kr06q"]
 [ext_resource type="PackedScene" uid="uid://e1o2ind3dmj5" path="res://Csc/Entity/enemy.tscn" id="4_tr8xb"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_bbg0u"]
@@ -539,20 +539,13 @@ layer_1/tile_data = PackedInt32Array(1245193, 65536, 1, 1245194, 131072, 1, 1245
 position = Vector2(194, 290)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
-color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+color = Color(0.156863, 0.156863, 0.156863, 1)
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(272, 256)
-scale = Vector2(0.6, 0.6)
-energy = 2.0
-texture = ExtResource("3_kssdl")
+[node name="MagicalLight" parent="." instance=ExtResource("3_kr06q")]
+position = Vector2(271, 255)
 
-[node name="PointLight2D2" type="PointLight2D" parent="."]
-position = Vector2(512, 256)
-scale = Vector2(0.6, 0.6)
-energy = 2.0
-texture = ExtResource("3_kssdl")
+[node name="MagicalLight2" parent="." instance=ExtResource("3_kr06q")]
+position = Vector2(511, 255)
 
 [node name="Enemy" parent="." instance=ExtResource("4_tr8xb")]
 position = Vector2(621, 207)
