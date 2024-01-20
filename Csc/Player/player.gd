@@ -1,12 +1,12 @@
 extends CharacterBody2D
 class_name Player
 
-@onready var timer_label = $Camera2D/Countdown
+@export var timer_label: Label
 @onready var game_timer = $Death_Timer
 
 var seconds_left := 120
 
-var speed := 100
+var speed := 300
 var jump := 250
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -33,7 +33,9 @@ var is_just_jumped:
 var is_just_landed:
 	get:
 		return is_on_floor() and previous_state == State.FALL
-		
+var teleport_cooldown: float = 0
+var is_just_teleported := false
+
 func _ready():
 	game_timer.start(1)
 	$Sprite2D.modulate = -1
@@ -55,8 +57,18 @@ func _physics_process(delta):
 		_determine_state()
 		_anim()
 		particles.particles(self)
-		
+	try_teleport(delta)
+	
 	timer_label.text = "Time: " + str(seconds_left) + "s"
+	
+func try_teleport(delta):
+	is_just_teleported = false
+	teleport_cooldown -= delta	
+	if teleport_cooldown < 0 and Input.is_mouse_button_pressed(1):
+		self.global_position = $BlueFire.global_position
+		teleport_cooldown = 0.3
+		is_just_teleported = true
+	
 	
 func _determine_state():
 	previous_state = state
@@ -126,3 +138,4 @@ func _on_animated_sprite_2d_animation_finished():
 
 func _on_indicator_timer_timeout():
 	$Indicator.hide()
+

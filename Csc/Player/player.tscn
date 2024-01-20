@@ -1,10 +1,12 @@
-[gd_scene load_steps=35 format=3 uid="uid://wb062wkbc77h"]
+[gd_scene load_steps=38 format=3 uid="uid://wb062wkbc77h"]
 
 [ext_resource type="Texture2D" uid="uid://bi3p42w5qnmic" path="res://Assets/BlackCultistSpritesheet.png" id="1_u7nc6"]
 [ext_resource type="Script" path="res://Csc/Player/player.gd" id="1_uyalk"]
 [ext_resource type="Texture2D" uid="uid://7cmdps0trlgy" path="res://Assets/download.jpeg" id="2_djgpc"]
 [ext_resource type="Texture2D" uid="uid://cfunb8avo5cpo" path="res://Assets/Dark VFX 2 (48x64).png" id="4_rqj73"]
+[ext_resource type="Texture2D" uid="uid://cf7pgsiwh6ps3" path="res://Assets/cultist.png" id="5_cmux6"]
 [ext_resource type="Script" path="res://Csc/Player/Particles.gd" id="5_gyukw"]
+[ext_resource type="Script" path="res://Csc/Player/BlueFire.gd" id="7_ofbgx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2b28x"]
 radius = 4.0
@@ -27,6 +29,10 @@ point_count = 2
 [sub_resource type="Curve" id="Curve_hphy2"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.494382, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.021978), 0.0, 0.0, 0, 0]
 point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_f4yfy"]
+offsets = PackedFloat32Array(0, 0.0533333, 1)
+colors = PackedColorArray(0, 1, 1, 0, 0, 1, 1, 0.776471, 1, 1, 1, 0)
 
 [sub_resource type="Animation" id="Animation_up8vh"]
 resource_name = "Death"
@@ -307,17 +313,6 @@ frame = 4
 position = Vector2(-1, 2)
 shape = SubResource("CapsuleShape2D_2b28x")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -35)
-zoom = Vector2(3, 3)
-
-[node name="Countdown" type="Label" parent="Camera2D"]
-offset_left = -19.0
-offset_top = -103.0
-offset_right = 21.0
-offset_bottom = -80.0
-horizontal_alignment = 1
-
 [node name="PointLight2D" type="PointLight2D" parent="."]
 scale = Vector2(0.5, 0.5)
 energy = 2.0
@@ -387,6 +382,28 @@ initial_velocity_min = 120.21
 initial_velocity_max = 120.21
 linear_accel_curve = SubResource("Curve_87bbk")
 
+[node name="AfterImage" type="CPUParticles2D" parent="Particles"]
+randomness = 0.65
+texture = ExtResource("5_cmux6")
+gravity = Vector2(0, 0)
+color_ramp = SubResource("Gradient_f4yfy")
+
+[node name="Teleport" type="CPUParticles2D" parent="Particles"]
+emitting = false
+amount = 50
+lifetime = 0.1
+one_shot = true
+speed_scale = 0.5
+explosiveness = 1.0
+local_coords = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 341.77
+initial_velocity_max = 417.72
+orbit_velocity_min = -2.0
+orbit_velocity_max = 10.0
+color = Color(0, 0.466667, 1, 0.741176)
+
 [node name="Animations" type="Node2D" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Animations"]
@@ -408,6 +425,20 @@ offset_bottom = -10.0
 
 [node name="Indicator_timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
+follow_viewport_enabled = true
+
+[node name="BlueFire" type="Node2D" parent="."]
+script = ExtResource("7_ofbgx")
+
+[node name="PointLight2D" type="PointLight2D" parent="BlueFire"]
+position = Vector2(-1, 2)
+scale = Vector2(0.5, 0.5)
+energy = 2.0
+range_layer_min = -100
+texture = ExtResource("2_djgpc")
 
 [connection signal="timeout" from="Death_Timer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="die" to="." method="_on_die_timeout"]

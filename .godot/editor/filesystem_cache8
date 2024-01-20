@@ -1,0 +1,26 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1705769791
+export_presets.cfg::TextFile::-1::1705769771::0::1::::<><>::
+icon.svg::CompressedTexture2D::7739861220022522155::1705769771::1705769791::1::::<><>::
+::res://Assets/::1705787320
+BlackCultistSpritesheet.png::CompressedTexture2D::3006698006326893034::1705769771::1705769791::1::::<><>::
+cultist.png::CompressedTexture2D::5190768102150111204::1705786552::1705786554::1::::<><>::
+Dark VFX 2 (48x64).png::CompressedTexture2D::5165865981602017796::1705769771::1705769791::1::::<><>::
+download.jpeg::CompressedTexture2D::2250906530038756840::1705769771::1705769791::1::::<><>::
+Dungeon Tile Set.png::CompressedTexture2D::8512313747774754118::1705782376::1705782377::1::::<><>::
+sparkles.png::CompressedTexture2D::1320821862769881572::1705787320::1705787321::1::::<><>::
+tileset.tres::TileSet::5367538029541680143::1705783156::0::1::::<><>::uid://dtjotfycpkhms::::res://Assets/Dungeon Tile Set.png
+::res://Csc/::1705769771
+::res://Csc/Entity/::1705786970
+enemy.gd::GDScript::-1::1705783583::0::1::::<>CharacterBody2D<>::
+enemy.tscn::PackedScene::335327890934960760::1705786970::0::1::::<><>::uid://bi3p42w5qnmic::::res://Assets/BlackCultistSpritesheet.png<>res://Csc/Entity/enemy.gd<>uid://cy3ivqn2yvoub::::res://Csc/objects/MagicalLight.tscn
+::res://Csc/objects/::1705786970
+MagicalLight.tscn::PackedScene::6515700291142518057::1705786970::0::1::::<><>::uid://7cmdps0trlgy::::res://Assets/download.jpeg
+::res://Csc/Player/::1705786970
+Particles.gd::GDScript::-1::1705786970::0::1::::Particles<>Node2D<>::
+player.gd::GDScript::-1::1705786950::0::1::::Player<>CharacterBody2D<>::
+player.tscn::PackedScene::1547793674792943911::1705786970::0::1::::<><>::uid://bi3p42w5qnmic::::res://Assets/BlackCultistSpritesheet.png<>res://Csc/Player/player.gd<>uid://7cmdps0trlgy::::res://Assets/download.jpeg<>uid://cfunb8avo5cpo::::res://Assets/Dark VFX 2 (48x64).png<>uid://cf7pgsiwh6ps3::::res://Assets/cultist.png<>res://Csc/Player/Particles.gd<>res://Csc/Player/BlueFire.gd
+FollowCamera.gd::GDScript::-1::1705786108::0::1::::<>Camera2D<>::
+BlueFire.gd::GDScript::-1::1705786454::0::1::::<>Node2D<>::
+::res://Csc/Scenes/::1705786970
+world.tscn::PackedScene::4125539967704563361::1705786970::0::1::::<><>::uid://wb062wkbc77h::::res://Csc/Player/player.tscn<>uid://ciqctju33rq5l::::res://Assets/tileset.tres<>uid://cy3ivqn2yvoub::::res://Csc/objects/MagicalLight.tscn<>uid://e1o2ind3dmj5::::res://Csc/Entity/enemy.tscn<>res://Csc/Player/FollowCamera.gd

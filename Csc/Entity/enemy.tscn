@@ -1,14 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://e1o2ind3dmj5"]
+[gd_scene load_steps=8 format=3 uid="uid://e1o2ind3dmj5"]
 
 [ext_resource type="Texture2D" uid="uid://bi3p42w5qnmic" path="res://Assets/BlackCultistSpritesheet.png" id="1_ju5tc"]
 [ext_resource type="Script" path="res://Csc/Entity/enemy.gd" id="1_v36pu"]
+[ext_resource type="PackedScene" uid="uid://cy3ivqn2yvoub" path="res://Csc/objects/MagicalLight.tscn" id="2_65814"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_85gbm"]
 radius = 4.0
 height = 12.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_psnrm"]
+radius = 101.57
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_6bx85"]
-radius = 92.0
+radius = 72.86
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3mw22"]
 radius = 9.0
@@ -16,6 +20,8 @@ radius = 9.0
 [node name="Enemy" type="CharacterBody2D"]
 wall_min_slide_angle = 0.0
 script = ExtResource("1_v36pu")
+
+[node name="MagicalLight" parent="." instance=ExtResource("2_65814")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 0.219608, 0.298039, 1)
@@ -36,9 +42,14 @@ rotation = 1.5708
 target_position = Vector2(0, -20)
 collision_mask = 4
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="ReturnBox" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ReturnBox"]
+shape = SubResource("CircleShape2D_psnrm")
+
+[node name="ChaseBox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChaseBox"]
 shape = SubResource("CircleShape2D_6bx85")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
@@ -51,6 +62,6 @@ target_position = Vector2(0, 20)
 position = Vector2(-1, 2)
 shape = SubResource("CircleShape2D_3mw22")
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_exited" from="ReturnBox" to="." method="_on_return_box_body_exited"]
+[connection signal="body_entered" from="ChaseBox" to="." method="_on_chase_box_body_entered"]
 [connection signal="body_entered" from="Attack_box" to="." method="_on_attack_box_body_entered"]

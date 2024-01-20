@@ -7,6 +7,7 @@ class_name Particles
 
 func particles(player: Player):
 	run_particles.emitting = player.state == player.State.RUN
+	$AfterImage.emitting = player.state != player.State.IDLE
 	
 	if player.is_just_jumped:
 		jump_particles.emitting = true 
@@ -15,6 +16,10 @@ func particles(player: Player):
 	if player.is_just_landed:
 		land_particles.emitting = true 
 		land_particles.restart()
+	
+	if player.is_just_teleported:
+		$Teleport.emitting = true
+		$Teleport.restart()
 	
 	if player.is_running_right:
 		self.scale.x = 1

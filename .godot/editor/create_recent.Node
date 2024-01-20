@@ -1,0 +1,10 @@
+AnimatedSprite2D
+CPUParticles2D
+PointLight2D
+Node2D
+CanvasLayer
+TileMap
+Sprite2D
+TextureRect
+ParallaxBackground
+ParallaxLayer

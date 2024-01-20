@@ -9,6 +9,7 @@ point_count = 3
 [node name="MagicalLight" type="PointLight2D"]
 scale = Vector2(0.6, 0.6)
 energy = 2.0
+range_layer_min = -512
 texture = ExtResource("1_um45k")
 
 [node name="LightParticles" type="CPUParticles2D" parent="."]
