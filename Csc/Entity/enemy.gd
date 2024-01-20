@@ -13,18 +13,20 @@ func _physics_process(delta):
 		velocity.y += gravity * delta
 	
 	if player_detected == false:
-		
-		if $Right.is_colliding():
-			speed = -80
-		if $Left.is_colliding():
-			speed = 80
-	else:
 		pass
-	
 	if $RayCast2D.is_colliding():
 		pass
 	else:
 		_flip()
+	
+	if facing_right:
+		speed = 80
+		$RayCast2D.position.x = 15
+		$Sprite2D.flip_h = false
+	else:
+		speed = -80
+		$RayCast2D.position.x = -15
+		$Sprite2D.flip_h = true
 	
 	velocity.x = speed
 	move_and_slide()
@@ -36,16 +38,12 @@ func _anim():
 func _flip():
 	facing_right = !facing_right
 	
-	if facing_right:
-		speed = 80
-	else:
-		speed = -80
 
 
 func _on_area_2d_body_entered(body):
 	if body.is_in_group("Player"):
-		player_detected = true
+		pass
 
 func _on_area_2d_body_exited(body):
 	if body.is_in_group("Player"):
-		player_detected = false
+		pass
