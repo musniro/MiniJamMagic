@@ -71,7 +71,8 @@ func _physics_process_returning():
 		global_position = spawn_point
 		state = State.PATROL
 		return
-		
+		set_collision_mask(1)
+		set_collision_layer(1)
 	var direction := delta.normalized()
 	velocity = direction * speed
 	move_and_slide()
@@ -97,8 +98,6 @@ func _on_return_box_body_exited(body):
 	if body.is_in_group("Player"):
 		if state == State.CHASING:
 			state = State.RETURNING
-		set_collision_mask(1)
-		set_collision_layer(1)
 
 
 func _on_attack_box_body_entered(body):

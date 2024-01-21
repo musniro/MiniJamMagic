@@ -69,7 +69,7 @@ func try_teleport(delta):
 		teleport_cooldown = 0.3
 		is_just_teleported = true
 	
-	
+
 func _determine_state():
 	previous_state = state
 	
