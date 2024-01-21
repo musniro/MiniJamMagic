@@ -95,9 +95,7 @@ func _on_chase_box_body_entered(body):
 	
 
 func _on_return_box_body_exited(body):
-	if body.is_in_group("Player"):
-		if state == State.CHASING:
-			state = State.RETURNING
+	pass
 
 
 func _on_attack_box_body_entered(body):

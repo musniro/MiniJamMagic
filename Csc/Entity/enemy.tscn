@@ -22,6 +22,8 @@ wall_min_slide_angle = 0.0
 script = ExtResource("1_v36pu")
 
 [node name="MagicalLight" parent="." instance=ExtResource("2_65814")]
+color = Color(1, 0.807843, 0.776471, 1)
+energy = 1.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 0.219608, 0.298039, 1)

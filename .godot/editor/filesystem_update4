@@ -6,3 +6,5 @@ res://Csc/Scenes/menu.tscn
 res://Csc/Player/player.gd
 res://Csc/Player/Particles.gd
 res://Csc/objects/parallax_background.tscn
+res://Csc/Entity/enemy.gd
+res://Csc/Player/FollowCamera.gd

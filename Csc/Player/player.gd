@@ -4,7 +4,7 @@ class_name Player
 @export var timer_label: Label
 @onready var game_timer = $Death_Timer
 
-var seconds_left := 120
+var seconds_left := 90
 
 var speed := 230
 var jump := 300
@@ -43,13 +43,17 @@ func _ready():
 	game_timer.start(1)
 	$Sprite2D.modulate = -1
 
+
 func _physics_process(delta):
+	if not alive:
+		return
+		
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	else:
 		is_double_jump_available = true
 		
-	var can_jump = (is_on_floor() or is_double_jump_available)
+	var can_jump = is_on_floor()# or is_double_jump_available)
 	if Input.is_action_just_pressed("Jump") and can_jump:
 		velocity.y -= jump
 		is_double_jump_available = is_on_floor()
@@ -57,39 +61,45 @@ func _physics_process(delta):
 	else:
 		is_just_jumped = false	
 	
-	if alive == true:
-		var direction = Input.get_axis("Left", "Right")
-		if direction:
-			velocity.x = direction * speed
-		else:
-			velocity.x = move_toward(velocity.x, 0, speed)
-			
-		velocity.y = min(velocity.y, 300)	
-		move_and_slide()
+	var direction = Input.get_axis("Left", "Right")
+	if direction:
+		velocity.x = direction * speed
+	else:
+		velocity.x = move_toward(velocity.x, 0, speed)
 		
-		_determine_state()
-		_anim()
-		particles.particles(self)
-		
-		try_teleport(delta)
-		is_just_hit = false
-		
+	velocity.y = clamp(velocity.y, -300, 300)	
+	move_and_slide()
 	
+	_determine_state()
+	_anim()
+	try_teleport(delta)
+	particles.particles(self)
+	
+	is_just_hit = false
+	
+	if position.y > 300:
+		_hit()
 	timer_label.text = "Time: " + str(seconds_left) + "s"
+
+	$PointLight2D.texture_scale = seconds_left / 90.0
+	$BlueFire/PointLight2D.texture_scale = seconds_left / 90.0
 	
+var dash_direction := Vector2(1,0)
+var dash_speed := 0
 func try_teleport(delta):
 	is_just_teleported = false
 	teleport_cooldown -= delta	
 	if teleport_cooldown < 0 and Input.is_mouse_button_pressed(1):
 		_hit()
 		var mouse_position = get_global_mouse_position()
-		var dash_direction = (mouse_position - global_position).normalized()
-		var dash_speed = 600
-		velocity = dash_direction * dash_speed
-		move_and_slide()
+		dash_direction = (mouse_position - global_position).normalized()
+		dash_speed = 600
 		teleport_cooldown = 0.3
 		is_just_teleported = true
-	
+	if dash_speed > 50:
+		velocity = dash_direction * dash_speed
+		move_and_slide()
+		dash_speed -= 50
 
 func _determine_state():
 	previous_state = state
@@ -143,14 +153,14 @@ func _on_death_timer_timeout():
 		game_timer.start(1)
 
 func _hit():
-	seconds_left -= 20
+	seconds_left -= 10
 	is_just_hit = true
 	$Indicator.visible = true
 	$Indicator.scale = Vector2(0.02,0.02)
 	
 	var tween = get_tree().create_tween()
 	tween.tween_property($Indicator, "scale", Vector2(0.2,0.2), 0.2)
-	$Indicator.text = "-20 s "
+	$Indicator.text = "-10 s "
 	$Indicator_timer.start()
 	
 	var countdown: Label = $"../Camera2D/CanvasLayer/Countdown"
