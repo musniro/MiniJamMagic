@@ -9,10 +9,10 @@ radius = 4.0
 height = 12.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_psnrm"]
-radius = 101.57
+radius = 166.003
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6bx85"]
-radius = 72.86
+radius = 155.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3mw22"]
 radius = 9.0

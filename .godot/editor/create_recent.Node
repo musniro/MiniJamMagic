@@ -1,0 +1,14 @@
+ColorRect
+Label
+Button
+VBoxContainer
+CanvasLayer
+Timer
+CollisionShape2D
+Area2D
+RayCast2D
+Sprite2D
+CharacterBody2D
+AnimatedSprite2D
+AnimationPlayer
+PointLight2D

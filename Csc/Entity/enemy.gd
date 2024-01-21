@@ -46,8 +46,7 @@ func _physics_process_chasing():
 		var direction : Vector2 = -(global_position - player.global_position).normalized()
 		velocity = direction * speed
 		move_and_slide()
-		set_collision_mask(2)
-		set_collision_layer(2)
+		
 	
 func _physics_process_patrol():
 	if $Left.is_colliding():
@@ -90,6 +89,8 @@ func _on_chase_box_body_entered(body):
 	if body.is_in_group("Player"):
 		if state == State.PATROL:
 			state = State.CHASING
+		set_collision_mask(2)
+		set_collision_layer(2)
 	
 
 func _on_return_box_body_exited(body):

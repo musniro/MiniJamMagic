@@ -6,8 +6,8 @@ class_name Player
 
 var seconds_left := 120
 
-var speed := 300
-var jump := 250
+var speed := 230
+var jump := 300
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var anim = $Animations/AnimationPlayer
