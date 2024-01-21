@@ -37,16 +37,17 @@ var teleport_cooldown: float = 0
 var is_just_teleported := false
 
 func _ready():
+	Engine.time_scale = 1
 	game_timer.start(1)
 	$Sprite2D.modulate = -1
 
 func _physics_process(delta):
+	if not is_on_floor():
+		velocity.y += gravity * delta
+	if Input.is_action_just_pressed("Jump") and is_on_floor():
+		velocity.y -= jump
+	
 	if alive == true:
-		if not is_on_floor():
-			velocity.y += gravity * delta
-		if Input.is_action_just_pressed("Jump") and is_on_floor():
-			velocity.y -= jump
-		
 		var direction = Input.get_axis("Left", "Right")
 		if direction:
 			velocity.x = direction * speed
@@ -57,7 +58,9 @@ func _physics_process(delta):
 		_determine_state()
 		_anim()
 		particles.particles(self)
-	try_teleport(delta)
+		
+		try_teleport(delta)
+		
 	
 	timer_label.text = "Time: " + str(seconds_left) + "s"
 	
@@ -65,6 +68,7 @@ func try_teleport(delta):
 	is_just_teleported = false
 	teleport_cooldown -= delta	
 	if teleport_cooldown < 0 and Input.is_mouse_button_pressed(1):
+		_hit()
 		self.global_position = $BlueFire.global_position
 		teleport_cooldown = 0.3
 		is_just_teleported = true
@@ -128,6 +132,7 @@ func _hit():
 
 func _on_die_timeout():
 	Engine.time_scale = 0
+	$CanvasLayer/Game_Over.show()
 
 
 func _on_animated_sprite_2d_animation_finished():

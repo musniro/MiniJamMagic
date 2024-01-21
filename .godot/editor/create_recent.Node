@@ -1,8 +1,8 @@
-ColorRect
-Label
-Button
-VBoxContainer
 CanvasLayer
+ColorRect
+Button
+Label
+VBoxContainer
 Timer
 CollisionShape2D
 Area2D

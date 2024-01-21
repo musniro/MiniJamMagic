@@ -9,3 +9,5 @@ res://Csc/UI/pause_menu.gd
 res://Csc/Player/FollowCamera.gd
 res://Csc/Scenes/menu.tscn
 res://Csc/Scenes/menu.gd
+res://Csc/UI/game_over.gd
+res://Csc/UI/game_over.tscn
