@@ -69,7 +69,11 @@ func try_teleport(delta):
 	teleport_cooldown -= delta	
 	if teleport_cooldown < 0 and Input.is_mouse_button_pressed(1):
 		_hit()
-		self.global_position = $BlueFire.global_position
+		var mouse_position = get_global_mouse_position()
+		var dash_direction = (mouse_position - global_position).normalized()
+		var dash_speed = 600
+		velocity = dash_direction * dash_speed
+		move_and_slide()
 		teleport_cooldown = 0.3
 		is_just_teleported = true
 	
