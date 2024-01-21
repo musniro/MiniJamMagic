@@ -21,6 +21,10 @@ func particles(player: Player):
 		$Teleport.emitting = true
 		$Teleport.restart()
 	
+	if player.is_just_hit:
+		$HitParticles.emitting = true
+		$HitParticles.restart()
+	
 	if player.is_running_right:
 		self.scale.x = 1
 	else:

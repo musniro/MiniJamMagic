@@ -27,14 +27,16 @@ var previous_state := State.IDLE
 var is_running_right:
 	get:
 		return velocity.x > 0
-var is_just_jumped:
-	get:
-		return state == State.JUMP and previous_state in [State.RUN, State.IDLE] 	
+var is_just_jumped := false
+
 var is_just_landed:
 	get:
 		return is_on_floor() and previous_state == State.FALL
 var teleport_cooldown: float = 0
 var is_just_teleported := false
+var is_just_hit := false
+
+var is_double_jump_available = true
 
 func _ready():
 	Engine.time_scale = 1
@@ -44,8 +46,16 @@ func _ready():
 func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
-	if Input.is_action_just_pressed("Jump") and is_on_floor():
+	else:
+		is_double_jump_available = true
+		
+	var can_jump = (is_on_floor() or is_double_jump_available)
+	if Input.is_action_just_pressed("Jump") and can_jump:
 		velocity.y -= jump
+		is_double_jump_available = is_on_floor()
+		is_just_jumped = true
+	else:
+		is_just_jumped = false	
 	
 	if alive == true:
 		var direction = Input.get_axis("Left", "Right")
@@ -53,6 +63,8 @@ func _physics_process(delta):
 			velocity.x = direction * speed
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
+			
+		velocity.y = min(velocity.y, 300)	
 		move_and_slide()
 		
 		_determine_state()
@@ -60,6 +72,7 @@ func _physics_process(delta):
 		particles.particles(self)
 		
 		try_teleport(delta)
+		is_just_hit = false
 		
 	
 	timer_label.text = "Time: " + str(seconds_left) + "s"
@@ -131,9 +144,23 @@ func _on_death_timer_timeout():
 
 func _hit():
 	seconds_left -= 20
+	is_just_hit = true
+	$Indicator.visible = true
+	$Indicator.scale = Vector2(0.02,0.02)
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property($Indicator, "scale", Vector2(0.2,0.2), 0.2)
 	$Indicator.text = "-20 s "
 	$Indicator_timer.start()
-
+	
+	var countdown: Label = $"../Camera2D/CanvasLayer/Countdown"
+	countdown.modulate = Color.DARK_RED
+	countdown.scale = Vector2(1.2,1.2)
+	var tween2 = get_tree().create_tween()
+	tween2.tween_property(countdown, "modulate", Color.WHITE, 0.3)
+	tween2.tween_property(countdown, "scale", Vector2(1,1), 0.3)
+	
+	
 func _on_die_timeout():
 	Engine.time_scale = 0
 	$CanvasLayer/Game_Over.show()

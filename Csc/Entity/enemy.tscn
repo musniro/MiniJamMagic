@@ -31,6 +31,7 @@ hframes = 20
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 2)
 shape = SubResource("CapsuleShape2D_85gbm")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="Left" type="RayCast2D" parent="."]
 rotation = 1.5708
