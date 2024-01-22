@@ -10,10 +10,15 @@ var speed := 230
 var jump := 300
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+@onready var SFXPlayer : AudioStreamPlayer = $SFXPlayer
 @onready var anim = $Animations/AnimationPlayer
 @onready var particles : Particles = $Particles
 @onready var death_smoke = $Animations/DeathSmoke
+signal died
+signal won
 
+
+var is_won := false
 var alive := true
 enum State { 
 	IDLE,
@@ -64,6 +69,8 @@ func _physics_process(delta):
 	var direction = Input.get_axis("Left", "Right")
 	if direction:
 		velocity.x = direction * speed
+		if randf() > 0.8:
+			SFXPlayer.step()
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		
@@ -80,9 +87,10 @@ func _physics_process(delta):
 	if position.y > 300:
 		_hit()
 	timer_label.text = "Time: " + str(seconds_left) + "s"
-
-	$PointLight2D.texture_scale = seconds_left / 90.0
-	$BlueFire/PointLight2D.texture_scale = seconds_left / 90.0
+	
+	if not is_won:
+		$PointLight2D.texture_scale = seconds_left / 90.0
+		$BlueFire/PointLight2D.texture_scale = seconds_left / 90.0
 	
 var dash_direction := Vector2(1,0)
 var dash_speed := 0
@@ -96,6 +104,7 @@ func try_teleport(delta):
 		dash_speed = 600
 		teleport_cooldown = 0.3
 		is_just_teleported = true
+		SFXPlayer.dash()
 	if dash_speed > 50:
 		velocity = dash_direction * dash_speed
 		move_and_slide()
@@ -142,19 +151,25 @@ func _anim():
 			
 
 func _on_death_timer_timeout():
+	if is_won:
+		return
 	seconds_left -= 1
 	if seconds_left <= 0:
 		game_timer.stop()
 		alive = false
 		anim.play("Hit")
+		died.emit()
 		death_smoke.play()
 		death_smoke.show()
 	else:
 		game_timer.start(1)
 
 func _hit():
+	if is_won:
+		return
 	seconds_left -= 10
 	is_just_hit = true
+	SFXPlayer.pain()
 	$Indicator.visible = true
 	$Indicator.scale = Vector2(0.02,0.02)
 	
@@ -185,3 +200,14 @@ func _on_animated_sprite_2d_animation_finished():
 func _on_indicator_timer_timeout():
 	$Indicator.hide()
 
+
+
+
+func _on_win_area_body_entered(body):
+	if body is Player:
+		won.emit()
+		$PointLight2D.texture_scale = 2.0
+		$BlueFire/PointLight2D.texture_scale = 2.0
+		
+		
+		is_won = true

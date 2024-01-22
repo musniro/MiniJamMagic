@@ -1,11 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://by1pbm3thjtq4"]
+[gd_scene load_steps=13 format=3 uid="uid://by1pbm3thjtq4"]
 
 [ext_resource type="PackedScene" uid="uid://wb062wkbc77h" path="res://Csc/Player/player.tscn" id="1_8n3lw"]
 [ext_resource type="TileSet" uid="uid://ciqctju33rq5l" path="res://Assets/tileset.tres" id="1_ccqjs"]
 [ext_resource type="PackedScene" uid="uid://b3j4tbw52qe57" path="res://Csc/objects/parallax_background.tscn" id="4_a4jem"]
 [ext_resource type="PackedScene" uid="uid://e1o2ind3dmj5" path="res://Csc/Entity/enemy.tscn" id="4_tr8xb"]
+[ext_resource type="Script" path="res://Csc/Scenes/Countdown.gd" id="5_w6h5b"]
 [ext_resource type="Script" path="res://Csc/Player/FollowCamera.gd" id="5_xiwf6"]
 [ext_resource type="PackedScene" uid="uid://cgffmw4k0d4x8" path="res://Csc/UI/pause_menu.tscn" id="6_06jhp"]
+[ext_resource type="AudioStream" uid="uid://b25tt3j6pjmnl" path="res://Assets/music/Vocatio Lucis (Level Theme, loop).wav" id="7_o2ddo"]
+[ext_resource type="Script" path="res://Csc/Scenes/AudioManager.gd" id="7_sl4vh"]
+[ext_resource type="AudioStream" uid="uid://fleox547ykxb" path="res://Assets/music/Mortuus (Death Theme).wav" id="9_nrwji"]
+[ext_resource type="AudioStream" uid="uid://bqxq3l5iug3ci" path="res://Assets/music/Finis (Victory Theme).wav" id="10_e2v3v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lku1v"]
+size = Vector2(96, 154)
 
 [node name="World" type="Node2D"]
 
@@ -49,6 +57,7 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 24
 text = "9:99"
 horizontal_alignment = 1
+script = ExtResource("5_w6h5b")
 
 [node name="Pause_Menu" parent="Camera2D/CanvasLayer" instance=ExtResource("6_06jhp")]
 visible = false
@@ -101,3 +110,30 @@ player = NodePath("../../Player")
 [node name="Enemy7" parent="Enemies" node_paths=PackedStringArray("player") instance=ExtResource("4_tr8xb")]
 position = Vector2(3448, 284)
 player = NodePath("../../Player")
+
+[node name="AudioManager" type="Node2D" parent="."]
+script = ExtResource("7_sl4vh")
+
+[node name="Music" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("7_o2ddo")
+volume_db = -10.0
+autoplay = true
+
+[node name="Death" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("9_nrwji")
+volume_db = -10.0
+
+[node name="Won" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("10_e2v3v")
+volume_db = -10.0
+
+[node name="WinArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WinArea"]
+position = Vector2(3760, 234)
+shape = SubResource("RectangleShape2D_lku1v")
+
+[connection signal="died" from="Player" to="AudioManager" method="_death"]
+[connection signal="won" from="Player" to="Camera2D/CanvasLayer/Countdown" method="_on_player_won"]
+[connection signal="won" from="Player" to="AudioManager" method="_on_player_won"]
+[connection signal="body_entered" from="WinArea" to="Player" method="_on_win_area_body_entered"]

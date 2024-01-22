@@ -15,7 +15,7 @@ func _process(delta):
 		pos = player.global_position + offset_right
 	else:
 		pos = player.global_position + offset_left
-	print(pos)
+
 	pos.y = clamp(pos.y,150,250)
 	_tween(tween,pos)
 

@@ -1,10 +1,14 @@
 res://Csc/Scenes/world.tscn
 res://Assets/tileset.tres
+res://Csc/Scenes/menu.tscn
 res://Csc/Player/player.tscn
 res://Csc/Entity/enemy.tscn
-res://Csc/Scenes/menu.tscn
+res://Csc/objects/parallax_background.tscn
+res://Csc/Scenes/AudioManager.gd
 res://Csc/Player/player.gd
 res://Csc/Player/Particles.gd
-res://Csc/objects/parallax_background.tscn
-res://Csc/Entity/enemy.gd
 res://Csc/Player/FollowCamera.gd
+res://Csc/Player/sfx_player.gd
+res://Csc/Player/BlueFire.gd
+res://Csc/Player/Indicator.gd
+res://Csc/Scenes/Countdown.gd

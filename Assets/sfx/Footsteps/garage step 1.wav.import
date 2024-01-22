@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cf8ah1u5esi8y"
+path="res://.godot/imported/garage step 1.wav-e4990692ddc961982aa666d69c3e348d.sample"
+
+[deps]
+
+source_file="res://Assets/sfx/Footsteps/garage step 1.wav"
+dest_files=["res://.godot/imported/garage step 1.wav-e4990692ddc961982aa666d69c3e348d.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=true
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

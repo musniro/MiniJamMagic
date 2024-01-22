@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cmp2e6efxfxap"
+path="res://.godot/imported/goblin 7.wav-cf0bff9280acada95be03f3d00067d2f.sample"
+
+[deps]
+
+source_file="res://Assets/sfx/Enemy/goblin 7.wav"
+dest_files=["res://.godot/imported/goblin 7.wav-cf0bff9280acada95be03f3d00067d2f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=true
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

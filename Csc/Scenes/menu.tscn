@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dyryx4o2m70qt"]
+[gd_scene load_steps=3 format=3 uid="uid://dyryx4o2m70qt"]
 
 [ext_resource type="Script" path="res://Csc/Scenes/menu.gd" id="1_ybdrv"]
+[ext_resource type="AudioStream" uid="uid://b7arwmnwfb3qv" path="res://Assets/music/Lux Ducit (Main Title).wav" id="2_m0374"]
 
 [node name="Menu" type="Node2D"]
 script = ExtResource("1_ybdrv")
@@ -64,6 +65,11 @@ text = "Made by:
  - Musniro / Nirusu (Code)
  - TheRealNiSSAK (Music)
  - Kelmi (Sfx)"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_m0374")
+volume_db = -10.0
+autoplay = true
 
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

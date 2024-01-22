@@ -5,7 +5,7 @@ class_name Particles
 @onready var jump_particles = $Jump
 @onready var land_particles = $Land
 
-func particles(player: Player):
+func particles(player: ):
 	run_particles.emitting = player.state == player.State.RUN
 	$AfterImage.emitting = player.state != player.State.IDLE
 	
@@ -30,3 +30,9 @@ func particles(player: Player):
 	else:
 		self.scale.x = -1
 		
+
+
+func _on_player_won():
+	$Win.emitting = true
+	$Win.restart()
+	

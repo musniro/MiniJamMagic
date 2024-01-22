@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bbfm46c7av3w8"
+path="res://.godot/imported/death pop.wav-82e629f4d353ee4a31878f0c70282f86.sample"
+
+[deps]
+
+source_file="res://Assets/sfx/death pop.wav"
+dest_files=["res://.godot/imported/death pop.wav-82e629f4d353ee4a31878f0c70282f86.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=true
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

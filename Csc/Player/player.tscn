@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://wb062wkbc77h"]
+[gd_scene load_steps=44 format=3 uid="uid://wb062wkbc77h"]
 
 [ext_resource type="Texture2D" uid="uid://bi3p42w5qnmic" path="res://Assets/BlackCultistSpritesheet.png" id="1_u7nc6"]
 [ext_resource type="Script" path="res://Csc/Player/player.gd" id="1_uyalk"]
@@ -9,6 +9,7 @@
 [ext_resource type="Theme" uid="uid://b6sa8sa458yhr" path="res://Assets/default_theme.tres" id="7_8rqk1"]
 [ext_resource type="Script" path="res://Csc/Player/BlueFire.gd" id="7_ofbgx"]
 [ext_resource type="PackedScene" uid="uid://bywimeqmbq8e" path="res://Csc/UI/game_over.tscn" id="8_sol1j"]
+[ext_resource type="Script" path="res://Csc/Player/sfx_player.gd" id="10_6o70r"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2b28x"]
 radius = 4.0
@@ -39,6 +40,15 @@ colors = PackedColorArray(0, 1, 1, 0, 0, 1, 1, 0.776471, 1, 1, 1, 0)
 [sub_resource type="Curve" id="Curve_wnovh"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.435484, 1), 0.0, 0.0, 0, 0, Vector2(0.620968, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
+
+[sub_resource type="Curve" id="Curve_8c42e"]
+max_value = 100.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.103524, 45.654), 13.9593, 13.9593, 0, 0, Vector2(0.455947, 0), 0.0, 0.0, 0, 0, Vector2(0.848018, 0), 0.0, 0.0, 0, 0, Vector2(1, 100), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_10bqq"]
+_data = [Vector2(0.00220264, 0.165977), 0.0, 0.0, 0, 0, Vector2(0.207048, 0.59106), 0.0, 0.0, 0, 0, Vector2(0.411894, 0.171358), 0.0, 0.0, 0, 0, Vector2(0.585903, 0.994619), 0.0, 0.0, 0, 0, Vector2(0.735683, 0.39197), 0.0, 0.0, 0, 0, Vector2(0.852423, 0.741722), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 7
 
 [sub_resource type="Animation" id="Animation_up8vh"]
 resource_name = "Death"
@@ -424,6 +434,23 @@ initial_velocity_max = 69.44
 scale_amount_curve = SubResource("Curve_wnovh")
 color = Color(1, 0, 0, 1)
 
+[node name="Win" type="CPUParticles2D" parent="Particles"]
+emitting = false
+amount = 24
+one_shot = true
+explosiveness = 0.66
+randomness = 0.37
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 130.8
+initial_velocity_max = 130.8
+damping_min = 10.0
+damping_max = 10.0
+damping_curve = SubResource("Curve_8c42e")
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_10bqq")
+color = Color(0.788235, 0.498039, 0.188235, 1)
+
 [node name="Animations" type="Node2D" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Animations"]
@@ -472,6 +499,11 @@ texture = ExtResource("2_djgpc")
 [node name="Game_Over" parent="CanvasLayer" instance=ExtResource("8_sol1j")]
 visible = false
 
+[node name="SFXPlayer" type="AudioStreamPlayer" parent="."]
+script = ExtResource("10_6o70r")
+
+[connection signal="won" from="." to="Particles" method="_on_player_won"]
+[connection signal="won" from="." to="Indicator" method="_on_player_won"]
 [connection signal="timeout" from="Death_Timer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="die" to="." method="_on_die_timeout"]
 [connection signal="animation_finished" from="Animations/DeathSmoke" to="." method="_on_animated_sprite_2d_animation_finished"]

@@ -1,8 +1,8 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1705850091
+::res://::1705925326
 export_presets.cfg::TextFile::-1::1705848995::0::1::::<><>::
 icon.svg::CompressedTexture2D::7739861220022522155::1705769771::1705788918::1::::<><>::
-::res://Assets/::1705850047
+::res://Assets/::1705925571
 BlackCultistSpritesheet.png::CompressedTexture2D::3006698006326893034::1705769771::1705788918::1::::<><>::
 cultist.png::CompressedTexture2D::5190768102150111204::1705786552::1705788918::1::::<><>::
 Dark VFX 2 (48x64).png::CompressedTexture2D::5165865981602017796::1705769771::1705788918::1::::<><>::
@@ -10,7 +10,7 @@ default_theme.tres::Theme::4599493514023387495::1690303667::0::1::::<><>::
 download.jpeg::CompressedTexture2D::2250906530038756840::1705769771::1705788918::1::::<><>::
 Dungeon Tile Set.png::CompressedTexture2D::8512313747774754118::1705849409::1705849411::1::::<><>::
 sparkles.png::CompressedTexture2D::1320821862769881572::1705787320::1705788918::1::::<><>::
-tileset.tres::TileSet::5367538029541680143::1705849486::0::1::::<><>::uid://dtjotfycpkhms::::res://Assets/Dungeon Tile Set.png
+tileset.tres::TileSet::5367538029541680143::1705925571::0::1::::<><>::uid://dtjotfycpkhms::::res://Assets/Dungeon Tile Set.png
 ::res://Assets/kenney_ui-pack/::1705849844
 license.txt::TextFile::-1::1393241220::0::1::::<><>::
 preview.png::CompressedTexture2D::4848720774778289123::1393241994::1705849844::1::::<><>::
@@ -185,22 +185,65 @@ yellowSheet.png::CompressedTexture2D::8084312265202600294::1393241320::170584984
 yellowSheet.xml::TextFile::-1::1393241320::0::1::::<><>::
 ::res://Assets/kenney_ui-pack/Vector/::1705849844
 UIpack_vector.svg::CompressedTexture2D::1922527880863179403::1393241166::1705849844::1::::<><>::
+::res://Assets/music/::1705925540
+Finis (Victory Theme).wav::AudioStreamWAV::3557944968850057004::1705925421::1705925540::1::::<><>::
+Lux Ducit (Main Title).wav::AudioStreamWAV::4633535807822067325::1705925421::1705925540::1::::<><>::
+Mortuus (Death Theme).wav::AudioStreamWAV::373921498313085335::1705925421::1705925540::1::::<><>::
+Vocatio Lucis (Level Theme, full).wav::AudioStreamWAV::5969846461815918489::1705925426::1705925540::1::::<><>::
+Vocatio Lucis (Level Theme, loop).wav::AudioStreamWAV::4344639833474479565::1705925427::1705925540::1::::<><>::
+::res://Assets/sfx/::1705925540
+death pop.wav::AudioStreamWAV::2467713440806127269::1705925446::1705928369::1::::<><>::
+magic dash.wav::AudioStreamWAV::6209129537979591638::1705925446::1705928369::1::::<><>::
+spike stab.wav::AudioStreamWAV::6179174120675989960::1705925446::1705928369::1::::<><>::
+::res://Assets/sfx/Enemy/::1705925540
+goblin 1.wav::AudioStreamWAV::1940255640641454214::1705925446::1705928369::1::::<><>::
+goblin 2.wav::AudioStreamWAV::8933231103164543055::1705925446::1705928369::1::::<><>::
+goblin 3.wav::AudioStreamWAV::6339831364083078568::1705925446::1705928369::1::::<><>::
+goblin 4.wav::AudioStreamWAV::2061882276635307003::1705925446::1705928369::1::::<><>::
+goblin 5.wav::AudioStreamWAV::5456861091686560444::1705925446::1705928369::1::::<><>::
+goblin 6.wav::AudioStreamWAV::3018227469280084618::1705925446::1705928369::1::::<><>::
+goblin 7.wav::AudioStreamWAV::5647721293995009571::1705925446::1705928369::1::::<><>::
+goblin 8.wav::AudioStreamWAV::384064891272862564::1705925446::1705928369::1::::<><>::
+::res://Assets/sfx/Footsteps/::1705928180
+garage step 1.wav::AudioStreamWAV::5191923949889988906::1705925446::1705928369::1::::<><>::
+garage step 2.wav::AudioStreamWAV::1057516181204944503::1705925446::1705928369::1::::<><>::
+garage step 3.wav::AudioStreamWAV::642983768909300552::1705925446::1705928369::1::::<><>::
+garage step 4.wav::AudioStreamWAV::8381311814660981874::1705925446::1705928369::1::::<><>::
+garage step 5.wav::AudioStreamWAV::7050728928732497668::1705925446::1705928369::1::::<><>::
+garage step 6.wav::AudioStreamWAV::5208266601460461593::1705925446::1705928369::1::::<><>::
+::res://Assets/sfx/Hit/::1705925540
+click 1.wav::AudioStreamWAV::4680839236739394033::1705925446::1705928369::1::::<><>::
+click 2.wav::AudioStreamWAV::7972789125662613889::1705925446::1705928369::1::::<><>::
+click 3.wav::AudioStreamWAV::4667497110082988624::1705925446::1705928369::1::::<><>::
+click 4.wav::AudioStreamWAV::2385701529866165107::1705925446::1705928369::1::::<><>::
+click 5.wav::AudioStreamWAV::1469015856681334382::1705925446::1705928369::1::::<><>::
+click 6.wav::AudioStreamWAV::8220765372960031299::1705925446::1705928369::1::::<><>::
+click 7.wav::AudioStreamWAV::1387392354389723615::1705925446::1705928369::1::::<><>::
+click 8.wav::AudioStreamWAV::1512867969303916643::1705925446::1705928369::1::::<><>::
+click 9.wav::AudioStreamWAV::3576677438681053993::1705925446::1705928369::1::::<><>::
+::res://Assets/sfx/Player pain/::1705925540
+pain 1.wav::AudioStreamWAV::6705998448965004482::1705925446::1705928369::1::::<><>::
+pain 2.wav::AudioStreamWAV::2080397356111000924::1705925446::1705928369::1::::<><>::
+pain 3.wav::AudioStreamWAV::3306980520352180709::1705925446::1705928369::1::::<><>::
 ::res://Csc/::1705830565
-::res://Csc/Entity/::1705850089
-enemy.gd::GDScript::-1::1705830565::0::1::::<>CharacterBody2D<>::
-enemy.tscn::PackedScene::335327890934960760::1705850089::0::1::::<><>::uid://bi3p42w5qnmic::::res://Assets/BlackCultistSpritesheet.png<>res://Csc/Entity/enemy.gd<>uid://cy3ivqn2yvoub::::res://Csc/objects/MagicalLight.tscn
-::res://Csc/objects/::1705788461
+::res://Csc/Entity/::1705928354
+enemy.gd::GDScript::-1::1705866655::0::1::::<>CharacterBody2D<>::
+enemy.tscn::PackedScene::335327890934960760::1705928354::0::1::::<><>::uid://bi3p42w5qnmic::::res://Assets/BlackCultistSpritesheet.png<>res://Csc/Entity/enemy.gd<>uid://cy3ivqn2yvoub::::res://Csc/objects/MagicalLight.tscn
+::res://Csc/objects/::1705928354
 MagicalLight.tscn::PackedScene::6515700291142518057::1705788461::0::1::::<><>::uid://7cmdps0trlgy::::res://Assets/download.jpeg
-::res://Csc/Player/::1705850088
+parallax_background.tscn::PackedScene::4372082516127791900::1705928354::0::1::::<><>::uid://ciqctju33rq5l::::res://Assets/tileset.tres<>uid://cy3ivqn2yvoub::::res://Csc/objects/MagicalLight.tscn
+::res://Csc/Player/::1705928354
 BlueFire.gd::GDScript::-1::1705786454::0::1::::<>Node2D<>::
-FollowCamera.gd::GDScript::-1::1705830565::0::1::::<>Camera2D<>::
-Particles.gd::GDScript::-1::1705788135::0::1::::Particles<>Node2D<>::
-player.gd::GDScript::-1::1705848890::0::1::::Player<>CharacterBody2D<>::
-player.tscn::PackedScene::1547793674792943911::1705850088::0::1::::<><>::uid://bi3p42w5qnmic::::res://Assets/BlackCultistSpritesheet.png<>res://Csc/Player/player.gd<>uid://7cmdps0trlgy::::res://Assets/download.jpeg<>uid://cfunb8avo5cpo::::res://Assets/Dark VFX 2 (48x64).png<>uid://cf7pgsiwh6ps3::::res://Assets/cultist.png<>res://Csc/Player/Particles.gd<>res://Csc/Player/BlueFire.gd<>uid://bywimeqmbq8e::::res://Csc/UI/game_over.tscn
-::res://Csc/Scenes/::1705850089
+FollowCamera.gd::GDScript::-1::1705927543::0::1::::<>Camera2D<>::
+Particles.gd::GDScript::-1::1705926671::0::1::::Particles<>Node2D<>::
+player.gd::GDScript::-1::1705928233::0::1::::Player<>CharacterBody2D<>::
+player.tscn::PackedScene::1547793674792943911::1705928354::0::1::::<><>::uid://bi3p42w5qnmic::::res://Assets/BlackCultistSpritesheet.png<>res://Csc/Player/player.gd<>uid://7cmdps0trlgy::::res://Assets/download.jpeg<>uid://cfunb8avo5cpo::::res://Assets/Dark VFX 2 (48x64).png<>uid://cf7pgsiwh6ps3::::res://Assets/cultist.png<>res://Csc/Player/Particles.gd<>uid://b6sa8sa458yhr::::res://Assets/default_theme.tres<>res://Csc/Player/BlueFire.gd<>uid://bywimeqmbq8e::::res://Csc/UI/game_over.tscn<>res://Csc/Player/sfx_player.gd
+sfx_player.gd::GDScript::-1::1705928351::0::1::::<>AudioStreamPlayer<>::
+::res://Csc/Scenes/::1705928354
 menu.gd::GDScript::-1::1705830565::0::1::::<>Node2D<>::
-menu.tscn::PackedScene::8880388547345799991::1705850089::0::1::::<><>::res://Csc/Scenes/menu.gd
-world.tscn::PackedScene::4125539967704563361::1705850088::0::1::::<><>::uid://wb062wkbc77h::::res://Csc/Player/player.tscn<>uid://ciqctju33rq5l::::res://Assets/tileset.tres<>uid://cy3ivqn2yvoub::::res://Csc/objects/MagicalLight.tscn<>uid://e1o2ind3dmj5::::res://Csc/Entity/enemy.tscn<>res://Csc/Player/FollowCamera.gd<>uid://cgffmw4k0d4x8::::res://Csc/UI/pause_menu.tscn
+menu.tscn::PackedScene::8880388547345799991::1705928354::0::1::::<><>::res://Csc/Scenes/menu.gd<>uid://b7arwmnwfb3qv::::res://Assets/music/Lux Ducit (Main Title).wav
+AudioManager.gd::GDScript::-1::1705926807::0::1::::<>Node2D<>::
+world.tscn::PackedScene::4125539967704563361::1705928354::0::1::::<><>::uid://wb062wkbc77h::::res://Csc/Player/player.tscn<>uid://ciqctju33rq5l::::res://Assets/tileset.tres<>uid://b3j4tbw52qe57::::res://Csc/objects/parallax_background.tscn<>uid://e1o2ind3dmj5::::res://Csc/Entity/enemy.tscn<>res://Csc/Player/FollowCamera.gd<>uid://cgffmw4k0d4x8::::res://Csc/UI/pause_menu.tscn<>uid://b25tt3j6pjmnl::::res://Assets/music/Vocatio Lucis (Level Theme, loop).wav<>res://Csc/Scenes/AudioManager.gd<>uid://fleox547ykxb::::res://Assets/music/Mortuus (Death Theme).wav<>uid://bqxq3l5iug3ci::::res://Assets/music/Finis (Victory Theme).wav
 ::res://Csc/UI/::1705849913
 game_over.gd::GDScript::-1::1705830565::0::1::::<>Control<>::
 game_over.tscn::PackedScene::121084607130049518::1705849913::0::1::::<><>::res://Csc/UI/game_over.gd
